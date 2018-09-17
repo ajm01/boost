@@ -24,14 +24,10 @@
         <dependencies>
             <dependency>
                 <groupId>io.openliberty.boost</groupId>
-                <artifactId>boost-jaxrs-7</artifactId>
-                <version>0.1-SNAPSHOT</version>
+                <artifactId>boost-jaxrs</artifactId>
+                <version>0.7-SNAPSHOT</version>
             </dependency>
 		</dependencies>            
     </dependencyManagement>
     
-	
-	<modules>
-		<module>boost-jaxrs-7</module>
-	</modules>	
 </project>

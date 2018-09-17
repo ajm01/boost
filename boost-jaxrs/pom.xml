@@ -5,13 +5,13 @@
     <modelVersion>4.0.0</modelVersion>
 
 	<groupId>io.openliberty.boost</groupId>
-	<artifactId>boost-jaxrs-7</artifactId>
-	<version>0.1-SNAPSHOT</version>
+	<artifactId>boost-jaxrs</artifactId>
+	<version>0.8-SNAPSHOT</version>
 	
 	<dependencies>
 		<dependency>
 			<groupId>io.openliberty.features</groupId>
-			<artifactId>jaxrs-2.0</artifactId>
+			<artifactId>jaxrs-2.1</artifactId>
 			<version>18.0.0.2</version>
 			<type>esa</type>
 		</dependency>	

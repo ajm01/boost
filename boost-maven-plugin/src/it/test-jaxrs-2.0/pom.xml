@@ -43,11 +43,10 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>io.openliberty.boost</groupId>
-			<artifactId>boost-jaxrs-7</artifactId>
-			<type>esa</type>
+            <groupId>io.openliberty.boost</groupId>
+            <artifactId>boost-jaxrs</artifactId>
 			<scope>provided</scope>
-		</dependency>
+        </dependency>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>

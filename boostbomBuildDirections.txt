@@ -1,0 +1,34 @@
+from the main boost repo directory:
+>cd boost-jaxrs
+
+edit pom.xml:
+
+change pom <version> tag to:
+<version>0.7-SNAPSHOT</version>
+
+in dependencyManagement block, 
+change jax-rs <artifactId> tag to:
+<artifactId>jaxrs-2.0</artifactId>
+
+save and exit edit session
+
+>mvn clean install
+
+Once that maven build finishes, re-edit the pom.xml:
+change pom <version> tag to:
+<version>0.8-SNAPSHOT</version>
+
+in dependencyManagement block, 
+change jax-rs <artifactId> tag to:
+<artifactId>jaxrs-2.1</artifactId>
+
+save and exit edit session 
+
+>mvn clean install
+
+once that maven build finishes, cd back to main boost repo dir and run the project build:
+
+>cd ..
+>mvn clean install
+
+the jax-rs it is using the ee7 bom and a generic boost-jaxrs dependency which should now result in jaxrs-2.0 being downloaded and used for compile.
