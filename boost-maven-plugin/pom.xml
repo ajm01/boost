@@ -22,8 +22,15 @@
 
         <dependency>
             <groupId>io.openliberty.boost</groupId>
-            <artifactId>boost-bom</artifactId>
-            <version>0.2-SNAPSHOT</version>
+            <artifactId>boost-javaee7-bom</artifactId>
+            <version>0.1-SNAPSHOT</version>
+            <type>pom</type>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.openliberty.boost</groupId>
+            <artifactId>boost-javaee8-bom</artifactId>
+            <version>0.1-SNAPSHOT</version>
             <type>pom</type>
             <scope>test</scope>
         </dependency>
