@@ -17,7 +17,7 @@
         <groupId>net.wasdev.maven.parent</groupId>
         <artifactId>parent</artifactId>
         <version>1.4</version>
-        <relativePath />
+        <!-- <relativePath /> -->
     </parent>
 
     <licenses>
