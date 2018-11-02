@@ -253,7 +253,9 @@ public class LibertyPackageMojo extends AbstractLibertyMojo {
             // starters defined
             List<String> boosterFeatureNames = getBoosterFeatureNames(boosterConfigurators);
             serverConfig.addFeatures(boosterFeatureNames);
-            serverConfig.addConfigForApp(project.getArtifactId(), project.getVersion());
+            if (project.getPackaging().equals("war")){
+            	serverConfig.addConfigForApp(project.getArtifactId(), project.getVersion());
+            }
             serverConfig.addConfigForFeatures(boosterConfigurators);
         
             // Write server.xml to Liberty server config directory
