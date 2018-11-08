@@ -8,16 +8,15 @@
  * Contributors:
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
-package io.openliberty.boost;
+package io.openliberty.boost.boosters;
 
 import org.w3c.dom.Document;
 import io.openliberty.boost.BoosterPackConfigurator;
 
-public class JAXRSBoosterPackConfigurator implements BoosterPackConfigurator {
+public class CDIBoosterPackConfigurator implements BoosterPackConfigurator {
 
 	//default to the EE8 feature
-	static String jaxrs21 = "jaxrs-2.1";
-	static String jaxrs20 = "jaxrs-2.0";
+	static String cdi20 = "cdi-2.0";
 	
 	String featureGAV = null;
 
@@ -30,11 +29,11 @@ public class JAXRSBoosterPackConfigurator implements BoosterPackConfigurator {
     @Override
     public void setFeatureString(String featureStr){
     	// if it is the 1.0 version = EE7 feature level
-    	if (featureStr.equals(BoosterPacksParent.JAXRS_BOOSTER_PACK_STRING_10 )) {
-    		featureGAV = jaxrs20;
-    	} else if (featureStr.equals(BoosterPacksParent.JAXRS_BOOSTER_PACK_STRING_20 )){
-    		featureGAV = jaxrs21;
-    	}
+    	if (featureStr.equals(BoosterPacksParent.CDI_BOOSTER_PACK_STRING_20 )) {
+    		featureGAV = cdi20;
+    	} //else if (featureStr.equals(BoosterPacksParent.JAXRS_BOOSTER_PACK_STRING_20 )){
+    		//featureGAV = jaxrs21;
+    	//}
     }
     
     @Override

@@ -38,7 +38,7 @@ import org.apache.maven.plugins.annotations.*;
 
 import io.openliberty.boost.BoostException;
 import io.openliberty.boost.BoosterPackConfigurator;
-import io.openliberty.boost.BoosterPacksParent;
+import io.openliberty.boost.boosters.BoosterPacksParent;
 import io.openliberty.boost.utils.BoostLogger;
 import io.openliberty.boost.utils.BoostUtil;
 import io.openliberty.boost.utils.ConfigConstants;
