@@ -33,8 +33,8 @@ public class JDBCBoosterPackConfigurator extends BoosterPackConfigurator {
     private final String DEPENDENCY_ARTIFACT = "org.apache.derby:derby:10.14.2.0";
 
     /**
-     * writes out jdbc default config data when selected by the presence of a
-     * jdbc boost dependency
+     * writes out jdbc default config data when selected by the presence of a jdbc
+     * boost dependency
      */
 	@Override
     public void addServerConfig(Document doc) {
