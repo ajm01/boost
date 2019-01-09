@@ -144,7 +144,7 @@ public class LibertyServerConfigGenerator {
      *            The full name of the Liberty feature to add.
      */
     public void addFeature(String featureName) {
-
+    	    	
         if (!featuresAdded.contains(featureName)) {
             Element feature = doc.createElement(FEATURE);
             feature.appendChild(doc.createTextNode(featureName));
@@ -174,7 +174,6 @@ public class LibertyServerConfigGenerator {
      * @throws IOException
      */
     public void writeToServer() throws TransformerException, IOException {
-
         // Replace auto-generated server.xml
         TransformerFactory transformerFactory = TransformerFactory.newInstance();
         Transformer transformer = transformerFactory.newTransformer();
@@ -210,7 +209,7 @@ public class LibertyServerConfigGenerator {
     }
 
     public void addBoosterConfig(BoosterPackConfigurator configurator) {
-        configurator.addServerConfig(getServerDoc());
+    		configurator.addServerConfig(getServerDoc());
     }
 
     public void addApplication(String appName) {
