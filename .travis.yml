@@ -2,8 +2,8 @@ sudo: required
 dist: trusty
 language: java
 jdk:
-    - openjdk8
-    - oraclejdk8
+#    - openjdk8
+#    - oraclejdk8
     - oraclejdk9
 matrix:
     exclude:
@@ -27,13 +27,13 @@ matrix:
       env: RUNTIME=wlp RUNTIME_VERSION=18.0.0.3 BUILD_TOOL=gradle
 env:
     - RUNTIME=ol RUNTIME_VERSION=18.0.0.4 BUILD_TOOL=maven
-    - RUNTIME=ol RUNTIME_VERSION=18.0.0.3 BUILD_TOOL=maven
+#    - RUNTIME=ol RUNTIME_VERSION=18.0.0.3 BUILD_TOOL=maven
     - RUNTIME=wlp RUNTIME_VERSION=18.0.0.4 BUILD_TOOL=maven
-    - RUNTIME=wlp RUNTIME_VERSION=18.0.0.3 BUILD_TOOL=maven
-    - RUNTIME=ol RUNTIME_VERSION=18.0.0.4 BUILD_TOOL=gradle
-    - RUNTIME=ol RUNTIME_VERSION=18.0.0.3 BUILD_TOOL=gradle
-    - RUNTIME=wlp RUNTIME_VERSION=18.0.0.4 BUILD_TOOL=gradle
-    - RUNTIME=wlp RUNTIME_VERSION=18.0.0.3 BUILD_TOOL=gradle
+#    - RUNTIME=wlp RUNTIME_VERSION=18.0.0.3 BUILD_TOOL=maven
+#    - RUNTIME=ol RUNTIME_VERSION=18.0.0.4 BUILD_TOOL=gradle
+#    - RUNTIME=ol RUNTIME_VERSION=18.0.0.3 BUILD_TOOL=gradle
+#    - RUNTIME=wlp RUNTIME_VERSION=18.0.0.4 BUILD_TOOL=gradle
+#    - RUNTIME=wlp RUNTIME_VERSION=18.0.0.3 BUILD_TOOL=gradle
 cache:
     directories:
         - $HOME/.m2

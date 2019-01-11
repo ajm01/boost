@@ -10,7 +10,7 @@ touch $BUILD_OUTPUT
 
 dump_output() {
    echo Tailing the last 5000 lines of output:
-   tail -5000 $BUILD_OUTPUT  
+   tail -10000 $BUILD_OUTPUT  
 }
 error_handler() {
   echo ERROR: An error was encountered with the build.
