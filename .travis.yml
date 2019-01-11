@@ -28,7 +28,7 @@ matrix:
 env:
     - RUNTIME=ol RUNTIME_VERSION=18.0.0.4 BUILD_TOOL=maven
 #    - RUNTIME=ol RUNTIME_VERSION=18.0.0.3 BUILD_TOOL=maven
-    - RUNTIME=wlp RUNTIME_VERSION=18.0.0.4 BUILD_TOOL=maven
+#    - RUNTIME=wlp RUNTIME_VERSION=18.0.0.4 BUILD_TOOL=maven
 #    - RUNTIME=wlp RUNTIME_VERSION=18.0.0.3 BUILD_TOOL=maven
 #    - RUNTIME=ol RUNTIME_VERSION=18.0.0.4 BUILD_TOOL=gradle
 #    - RUNTIME=ol RUNTIME_VERSION=18.0.0.3 BUILD_TOOL=gradle
@@ -54,7 +54,7 @@ script:
     - |
       if [ "$BUILD_TOOL" = "maven" ]; then
           export CD_COMMAND="cd boost-maven";
-          export TEST_COMMAND="mvn install -Pit -Dinvoker.streamLogs=true -Druntime=$RUNTIME -DruntimeVersion=$RUNTIME_VERSION";
+          export TEST_COMMAND="mvn install -Pit -Dinvoker.test=test-mpHealth* -Dinvoker.streamLogs=true -Druntime=$RUNTIME -DruntimeVersion=$RUNTIME_VERSION";
       else
           export CD_COMMAND="cd boost-gradle";
           export TEST_COMMAND="./gradlew install check -Druntime=$RUNTIME -DruntimeVersion=$RUNTIME_VERSION --stacktrace --info --no-daemon";

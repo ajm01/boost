@@ -9,7 +9,7 @@ export BUILD_OUTPUT=$WORKDIR/build.out
 touch $BUILD_OUTPUT
 
 dump_output() {
-   echo Tailing the last 5000 lines of output:
+   echo Tailing the last 10000 lines of output:
    tail -10000 $BUILD_OUTPUT  
 }
 error_handler() {
