@@ -3,8 +3,8 @@ dist: trusty
 language: java
 jdk:
 #    - openjdk8
-#    - oraclejdk8
-    - oraclejdk9
+    - oraclejdk8
+#    - oraclejdk9
 matrix:
     exclude:
     # Exclude 18.0.0.3 with Java 9
