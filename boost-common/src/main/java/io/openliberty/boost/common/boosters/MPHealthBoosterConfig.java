@@ -25,7 +25,8 @@ import io.openliberty.boost.common.boosters.AbstractBoosterConfig.BoosterCoordin
 public class MPHealthBoosterConfig extends AbstractBoosterConfig {
 
     String libertyFeature = null;
-    
+    String tomeeDependencyString = null;
+
     public MPHealthBoosterConfig(Map<String, String> dependencies, BoostLoggerI logger) throws BoostException {
         String version = dependencies.get(getCoordindates(this.getClass()));
         // if it is the 2.0 version = MP2.0 feature level
@@ -53,6 +54,12 @@ public class MPHealthBoosterConfig extends AbstractBoosterConfig {
 
     @Override
     public Properties getServerProperties() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public String getTomEEDependency() {
         // TODO Auto-generated method stub
         return null;
     }

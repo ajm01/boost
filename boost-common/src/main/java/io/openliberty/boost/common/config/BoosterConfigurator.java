@@ -17,6 +17,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.xml.parsers.ParserConfigurationException;
+
 import org.reflections.Reflections;
 
 import io.openliberty.boost.common.BoostException;
@@ -26,8 +28,8 @@ import io.openliberty.boost.common.boosters.AbstractBoosterConfig;
 public class BoosterConfigurator {
 
     /**
-     * take a list of pom boost dependency strings and map to liberty features
-     * for config. return a list of feature configuration objects for each found
+     * take a list of pom boost dependency strings and map to liberty features for
+     * config. return a list of feature configuration objects for each found
      * dependency.
      * 
      * @param dependencies
@@ -107,6 +109,37 @@ public class BoosterConfigurator {
         }
 
         return dependenciesToCopy;
+    }
+
+    public static String getTargetRuntime(Map<String, String> dependencies, BoostLoggerI logger) {
+
+        if (dependencies.containsKey("io.openliberty.boosters:tomee")) {
+            logger.info("found tomee runtime target");
+            return ConfigConstants.TOMEE_RUNTIME;
+        } else {
+            logger.info("did not find  tomee runtime target, defaulting to liberty");
+            return ConfigConstants.LIBERTY_RUNTIME;
+        }
+    }
+
+    public static void addTOMEEDependencyJarsToClasspath(String tomeeServerPath,
+            List<AbstractBoosterConfig> boosterPackConfigurators, BoostLoggerI logger) {
+
+        TomEEServerConfigGenerator tomeeConfig = null;
+        try {
+            tomeeConfig = new TomEEServerConfigGenerator(tomeeServerPath, logger);
+        } catch (ParserConfigurationException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        try {
+            tomeeConfig.addJarsToSharedLoader();
+        } catch (ParserConfigurationException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
     }
 
 }

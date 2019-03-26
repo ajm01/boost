@@ -25,6 +25,7 @@ import java.util.Properties;
 public class JAXRSBoosterConfig extends AbstractBoosterConfig {
 
     String libertyFeature = null;
+    String tomeeDependencyString = null;
 
     public JAXRSBoosterConfig(Map<String, String> dependencies, BoostLoggerI logger) throws BoostException {
         String version = dependencies.get(getCoordindates(this.getClass()));
@@ -54,6 +55,12 @@ public class JAXRSBoosterConfig extends AbstractBoosterConfig {
     @Override
     public Properties getServerProperties() {
 
+        return null;
+    }
+
+    @Override
+    public String getTomEEDependency() {
+        // TODO Auto-generated method stub
         return null;
     }
 }

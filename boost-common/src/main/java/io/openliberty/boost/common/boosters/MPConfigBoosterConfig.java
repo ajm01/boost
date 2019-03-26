@@ -25,7 +25,8 @@ import io.openliberty.boost.common.boosters.AbstractBoosterConfig.BoosterCoordin
 public class MPConfigBoosterConfig extends AbstractBoosterConfig {
 
     String libertyFeature = null;
-    
+    String tomeeDependencyString = null;
+
     public MPConfigBoosterConfig(Map<String, String> dependencies, BoostLoggerI logger) throws BoostException {
         String version = dependencies.get(getCoordindates(this.getClass()));
         // if it is the 1.0 version = EE7 feature level
@@ -48,6 +49,11 @@ public class MPConfigBoosterConfig extends AbstractBoosterConfig {
     @Override
     public String getDependency() {
         return null;
+    }
+
+    @Override
+    public String getTomEEDependency() {
+        return "org.apache.geronimo.config:geronimo-config-impl:1.0";
     }
 
     @Override

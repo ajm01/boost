@@ -28,14 +28,14 @@ import io.openliberty.boost.common.BoostException;
  *
  */
 public abstract class AbstractBoosterConfig {
-    
+
     @Retention(RetentionPolicy.RUNTIME)
     @Target(ElementType.TYPE)
     @Inherited
     public @interface BoosterCoordinates {
-       String value();
+        String value();
     }
-    
+
     public static String getCoordindates(Class<?> klass) throws BoostException {
         BoosterCoordinates coordinates = klass.getAnnotation(BoosterCoordinates.class);
         if (coordinates == null) {
@@ -75,5 +75,7 @@ public abstract class AbstractBoosterConfig {
      * @return
      */
     public abstract String getDependency();
+
+    public abstract String getTomEEDependency();
 
 }
