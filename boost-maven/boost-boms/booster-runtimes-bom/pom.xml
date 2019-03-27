@@ -28,6 +28,7 @@
 				<groupId>io.openliberty.boosters</groupId>
 				<artifactId>tomee</artifactId>
 				<version>0.2-SNAPSHOT</version>
+				<scope>provided</scope>
 		    </dependency>
 		</dependencies>
 	</dependencyManagement>

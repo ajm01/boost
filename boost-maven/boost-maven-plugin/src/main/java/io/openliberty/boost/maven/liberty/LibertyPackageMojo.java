@@ -51,6 +51,7 @@ public class LibertyPackageMojo extends AbstractLibertyMojo {
     String springBootVersion = null;
 
     String libertyServerPath = null;
+    String tomeeInstallPath = null;
     String tomeeConfigPath = null;
 
     @Override
@@ -60,7 +61,8 @@ public class LibertyPackageMojo extends AbstractLibertyMojo {
         springBootVersion = MavenProjectUtil.findSpringBootVersion(project);
 
         libertyServerPath = projectBuildDir + "/liberty/wlp/usr/servers/" + libertyServerName;
-        tomeeConfigPath = projectBuildDir + "/apache-tomee/conf";
+        tomeeInstallPath = projectBuildDir + "/apache-tomee/";
+        tomeeConfigPath = tomeeInstallPath + "conf";
 
         try {
             Map<String, String> dependencies = MavenProjectUtil.getAllDependencies(project, repoSystem, repoSession,
@@ -75,7 +77,7 @@ public class LibertyPackageMojo extends AbstractLibertyMojo {
         if (this.targetRuntime.equals(ConfigConstants.TOMEE_RUNTIME)) {
             createTomEEServer();
             updateTOMEEClasspath();
-            return;
+            // return;
         } else {
             createLibertyServer();
         }
@@ -144,31 +146,37 @@ public class LibertyPackageMojo extends AbstractLibertyMojo {
             String javaCompilerTargetVersion = MavenProjectUtil.getJavaCompilerTargetVersion(project);
             System.setProperty(BoostProperties.INTERNAL_COMPILER_TARGET, javaCompilerTargetVersion);
 
-            copyBoosterDependencies();
-
-            generateServerConfigEE();
-
-            installMissingFeatures();
-            // we install the app now, after server.xml is configured. This is
-            // so that we can specify a custom config-root in server.xml ("/").
-            // If we installed the app prior to server.xml configuration, then
-            // the LMP would write out a webapp stanza into config dropins that
-            // would include a config-root setting set to the app name.
-            if (project.getPackaging().equals("war")) {
-                installApp(ConfigConstants.INSTALL_PACKAGE_ALL);
+            if (this.targetRuntime.equals(ConfigConstants.TOMEE_RUNTIME)) {
+                // targeting a tomee install
+                copyTomEEJarDependencies();
             } else {
-                // This is temporary. When packing type is "jar", if we
-                // set installAppPackages=all, the LMP will try to install
-                // the project jar and fail. Once this is fixed, we can always
-                // set installAppPackages=all.
-                installApp(ConfigConstants.INSTALL_PACKAGE_DEP);
-            }
+                // targeting a liberty install
+                copyBoosterDependencies();
 
-            // Not sure this works yet, the main idea is to NOT create this with
-            // a WAR
-            // package type.
-            if (project.getPackaging().equals("jar")) {
-                createUberJar(null, true);
+                generateServerConfigEE();
+
+                installMissingFeatures();
+                // we install the app now, after server.xml is configured. This is
+                // so that we can specify a custom config-root in server.xml ("/").
+                // If we installed the app prior to server.xml configuration, then
+                // the LMP would write out a webapp stanza into config dropins that
+                // would include a config-root setting set to the app name.
+                if (project.getPackaging().equals("war")) {
+                    installApp(ConfigConstants.INSTALL_PACKAGE_ALL);
+                } else {
+                    // This is temporary. When packing type is "jar", if we
+                    // set installAppPackages=all, the LMP will try to install
+                    // the project jar and fail. Once this is fixed, we can always
+                    // set installAppPackages=all.
+                    installApp(ConfigConstants.INSTALL_PACKAGE_DEP);
+                }
+
+                // Not sure this works yet, the main idea is to NOT create this with
+                // a WAR
+                // package type.
+                if (project.getPackaging().equals("jar")) {
+                    createUberJar(null, true);
+                }
             }
         }
     }
@@ -223,12 +231,12 @@ public class LibertyPackageMojo extends AbstractLibertyMojo {
     private void updateTOMEEClasspath() throws MojoExecutionException {
 
         try {
-            // Generate server config
+            // update server config
             BoosterConfigurator.addTOMEEDependencyJarsToClasspath(tomeeConfigPath, boosterPackConfigurators,
                     BoostLogger.getInstance());
 
         } catch (Exception e) {
-            throw new MojoExecutionException("Unable to generate server configuration for the Liberty server.", e);
+            throw new MojoExecutionException("Unable to update server configuration for the tomee server.", e);
         }
     }
 
@@ -327,9 +335,11 @@ public class LibertyPackageMojo extends AbstractLibertyMojo {
      */
     private void createTomEEServer() throws MojoExecutionException {
 
-        executeMojo(getTOMEEPlugin(), goal("build"),
-                configuration(element(name("tomeeVersion"), "8.0.0-M2"), element(name("tomeeClassifier"), "plus")),
-                getExecutionEnvironment());
+        List<String> tomEEDependencyJarsToCopy = BoosterConfigurator
+                .getTomEEDependencyJarsToCopy(boosterPackConfigurators, BoostLogger.getInstance());
+
+        executeMojo(getTOMEEPlugin(), goal("build"), configuration(element(name("tomeeVersion"), "8.0.0-M2"),
+                element(name("tomeeClassifier"), "microprofile")), getExecutionEnvironment());
     }
 
     /**
@@ -390,6 +400,32 @@ public class LibertyPackageMojo extends AbstractLibertyMojo {
 
             executeMojo(getMavenDependencyPlugin(), goal("copy"),
                     configuration(element(name("outputDirectory"), libertyServerPath + "/resources"),
+                            element(name("artifactItems"),
+                                    element(name("artifactItem"), element(name("groupId"), dependencyInfo[0]),
+                                            element(name("artifactId"), dependencyInfo[1]),
+                                            element(name("version"), dependencyInfo[2])))),
+                    getExecutionEnvironment());
+        }
+    }
+
+    /**
+     * Get all booster dependencies and invoke the maven-dependency-plugin to copy
+     * them to the Liberty server.
+     * 
+     * @throws MojoExecutionException
+     *
+     */
+    private void copyTomEEJarDependencies() throws MojoExecutionException {
+
+        List<String> tomEEDependencyJarsToCopy = BoosterConfigurator
+                .getTomEEDependencyJarsToCopy(boosterPackConfigurators, BoostLogger.getInstance());
+
+        for (String dep : tomEEDependencyJarsToCopy) {
+
+            String[] dependencyInfo = dep.split(":");
+
+            executeMojo(getMavenDependencyPlugin(), goal("copy"),
+                    configuration(element(name("outputDirectory"), tomeeInstallPath + "boost"),
                             element(name("artifactItems"),
                                     element(name("artifactItem"), element(name("groupId"), dependencyInfo[0]),
                                             element(name("artifactId"), dependencyInfo[1]),

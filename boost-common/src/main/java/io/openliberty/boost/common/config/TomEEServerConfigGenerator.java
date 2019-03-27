@@ -64,14 +64,16 @@ public class TomEEServerConfigGenerator {
         // bootstrapProperties = new Properties();
     }
 
-    public void addJarsToSharedLoader() throws ParserConfigurationException {
+    public void addJarsDirToSharedLoader() throws ParserConfigurationException {
         try {
-            // input the file content to the StringBuffer "input"
             BufferedReader file = new BufferedReader(new FileReader(configPath + "/catalina.properties"));
             String line;
             String replaceString = "shared.loader=";
-            String replaceWithString = "shared.loader=\"${catalina.home}/boost\",\"${catalina.home}/boost/*.jar\"";
+            String replaceWithString = "shared.loader=\"${catalina.home}/boost\",\"${catalina.home}/"
+                    + ConfigConstants.TOMEEBOOST_JAR_DIR + "/*.jar\"";
             StringBuffer inputBuffer = new StringBuffer();
+
+            createTOMEEBoostJarDir();
 
             while ((line = file.readLine()) != null) {
                 inputBuffer.append(line);
@@ -97,6 +99,20 @@ public class TomEEServerConfigGenerator {
 
         } catch (Exception e) {
             System.out.println("Problem reading file.");
+        }
+    }
+
+    private void createTOMEEBoostJarDir() {
+        File dir = new File(tomeeInstallPath + "/" + ConfigConstants.TOMEEBOOST_JAR_DIR);
+
+        // attempt to create the directory here
+        boolean successful = dir.mkdir();
+        if (successful) {
+            // creating the directory succeeded
+            System.out.println("directory was created successfully");
+        } else {
+            // creating the directory failed
+            System.out.println("failed trying to create the directory");
         }
     }
 

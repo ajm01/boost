@@ -125,6 +125,8 @@ public class BoosterConfigurator {
     public static void addTOMEEDependencyJarsToClasspath(String tomeeServerPath,
             List<AbstractBoosterConfig> boosterPackConfigurators, BoostLoggerI logger) {
 
+        // first get the dependency coordinate strings for each booster
+
         TomEEServerConfigGenerator tomeeConfig = null;
         try {
             tomeeConfig = new TomEEServerConfigGenerator(tomeeServerPath, logger);
@@ -134,7 +136,7 @@ public class BoosterConfigurator {
         }
 
         try {
-            tomeeConfig.addJarsToSharedLoader();
+            tomeeConfig.addJarsDirToSharedLoader();
         } catch (ParserConfigurationException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -142,4 +144,20 @@ public class BoosterConfigurator {
 
     }
 
+    public static List<String> getTomEEDependencyJarsToCopy(List<AbstractBoosterConfig> boosterPackConfigurators,
+            BoostLoggerI logger) {
+
+        List<String> tomeeDependencyJarsToCopy = new ArrayList<String>();
+
+        for (AbstractBoosterConfig configurator : boosterPackConfigurators) {
+            String dependencyToCopy = configurator.getTomEEDependency();
+
+            if (dependencyToCopy != null) {
+                logger.info(dependencyToCopy);
+                tomeeDependencyJarsToCopy.add(dependencyToCopy);
+            }
+        }
+
+        return tomeeDependencyJarsToCopy;
+    }
 }
