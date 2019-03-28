@@ -60,7 +60,6 @@ public class MPOpenTracingBoosterConfig extends AbstractBoosterConfig {
 
     @Override
     public List<String> getTomEEDependency() {
-        // TODO Auto-generated method stub
-        return null;
+        return tomeeDependencyStrings;
     }
 }

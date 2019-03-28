@@ -36,6 +36,9 @@ public class MPRestClientBoosterConfig extends AbstractBoosterConfig {
         if (version.equals(MP_20_VERSION)) {
             libertyFeature = MPRESTCLIENT_11;
         }
+
+        tomeeDependencyStrings.add("org.apache.cxf:cxf-rt-rs-mp-client:3.2.6");
+        tomeeDependencyStrings.add("org.eclipse.microprofile.rest.client:microprofile-rest-client-api:1.1");
     }
 
     @Override
@@ -63,6 +66,6 @@ public class MPRestClientBoosterConfig extends AbstractBoosterConfig {
     @Override
     public List<String> getTomEEDependency() {
         // TODO Auto-generated method stub
-        return null;
+        return tomeeDependencyStrings;
     }
 }
