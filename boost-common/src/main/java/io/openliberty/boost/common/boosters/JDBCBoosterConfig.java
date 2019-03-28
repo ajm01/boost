@@ -18,6 +18,8 @@ import io.openliberty.boost.common.utils.BoostUtil;
 
 import static io.openliberty.boost.common.config.ConfigConstants.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
@@ -36,7 +38,7 @@ public class JDBCBoosterConfig extends AbstractBoosterConfig {
 
     private String dependency;
     private String libertyFeature;
-    String tomeeDependencyString;
+    List<String> tomeeDependencyStrings = new ArrayList<String>();
 
     private Properties serverProperties;
 
@@ -224,7 +226,7 @@ public class JDBCBoosterConfig extends AbstractBoosterConfig {
     }
 
     @Override
-    public String getTomEEDependency() {
+    public List<String> getTomEEDependency() {
         // TODO Auto-generated method stub
         return null;
     }

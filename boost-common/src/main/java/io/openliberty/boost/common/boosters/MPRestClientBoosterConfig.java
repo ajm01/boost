@@ -12,6 +12,8 @@ package io.openliberty.boost.common.boosters;
 
 import static io.openliberty.boost.common.config.ConfigConstants.MPRESTCLIENT_11;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
@@ -25,7 +27,7 @@ import io.openliberty.boost.common.boosters.AbstractBoosterConfig.BoosterCoordin
 public class MPRestClientBoosterConfig extends AbstractBoosterConfig {
 
     String libertyFeature = null;
-    String tomeeDependencyString = null;
+    List<String> tomeeDependencyStrings = new ArrayList<String>();
 
     public MPRestClientBoosterConfig(Map<String, String> dependencies, BoostLoggerI logger) throws BoostException {
         String version = dependencies.get(getCoordindates(this.getClass()));
@@ -59,7 +61,7 @@ public class MPRestClientBoosterConfig extends AbstractBoosterConfig {
     }
 
     @Override
-    public String getTomEEDependency() {
+    public List<String> getTomEEDependency() {
         // TODO Auto-generated method stub
         return null;
     }

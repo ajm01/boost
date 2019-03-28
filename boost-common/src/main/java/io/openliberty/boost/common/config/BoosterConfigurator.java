@@ -13,6 +13,7 @@ package io.openliberty.boost.common.config;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -147,17 +148,22 @@ public class BoosterConfigurator {
     public static List<String> getTomEEDependencyJarsToCopy(List<AbstractBoosterConfig> boosterPackConfigurators,
             BoostLoggerI logger) {
 
+        Set<String> allTomEEDependencyJarsNoDups;
         List<String> tomeeDependencyJarsToCopy = new ArrayList<String>();
 
         for (AbstractBoosterConfig configurator : boosterPackConfigurators) {
-            String dependencyToCopy = configurator.getTomEEDependency();
-
-            if (dependencyToCopy != null) {
-                logger.info(dependencyToCopy);
-                tomeeDependencyJarsToCopy.add(dependencyToCopy);
+            List<String> dependencyStringsToCopy = configurator.getTomEEDependency();
+            for (String tomeeDependecyStr : dependencyStringsToCopy) {
+                if (tomeeDependecyStr != null) {
+                    logger.info(tomeeDependecyStr);
+                    tomeeDependencyJarsToCopy.add(tomeeDependecyStr);
+                }
             }
-        }
 
+        }
+        allTomEEDependencyJarsNoDups = new HashSet<>(tomeeDependencyJarsToCopy);
+        tomeeDependencyJarsToCopy.clear();
+        tomeeDependencyJarsToCopy.addAll(allTomEEDependencyJarsNoDups);
         return tomeeDependencyJarsToCopy;
     }
 }

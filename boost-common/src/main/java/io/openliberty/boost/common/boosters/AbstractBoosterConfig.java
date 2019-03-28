@@ -16,6 +16,7 @@ import java.lang.annotation.Inherited;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+import java.util.List;
 import java.util.Properties;
 
 import org.w3c.dom.Document;
@@ -76,6 +77,6 @@ public abstract class AbstractBoosterConfig {
      */
     public abstract String getDependency();
 
-    public abstract String getTomEEDependency();
+    public abstract List<String> getTomEEDependency();
 
 }

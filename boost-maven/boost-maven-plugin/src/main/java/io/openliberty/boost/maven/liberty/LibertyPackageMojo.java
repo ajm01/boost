@@ -338,8 +338,9 @@ public class LibertyPackageMojo extends AbstractLibertyMojo {
         List<String> tomEEDependencyJarsToCopy = BoosterConfigurator
                 .getTomEEDependencyJarsToCopy(boosterPackConfigurators, BoostLogger.getInstance());
 
-        executeMojo(getTOMEEPlugin(), goal("build"), configuration(element(name("tomeeVersion"), "8.0.0-M2"),
-                element(name("tomeeClassifier"), "microprofile")), getExecutionEnvironment());
+        executeMojo(getTOMEEPlugin(), goal("build"),
+                configuration(element(name("tomeeVersion"), "8.0.0-M2"), element(name("tomeeClassifier"), "plus")),
+                getExecutionEnvironment());
     }
 
     /**
