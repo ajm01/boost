@@ -37,7 +37,7 @@ public class MPRestClientBoosterConfig extends AbstractBoosterConfig {
             libertyFeature = MPRESTCLIENT_11;
         }
 
-        tomeeDependencyStrings.add("org.apache.cxf:cxf-rt-rs-mp-client:3.2.6");
+        tomeeDependencyStrings.add("org.apache.cxf:cxf-rt-rs-mp-client:3.2.7");
         tomeeDependencyStrings.add("org.eclipse.microprofile.rest.client:microprofile-rest-client-api:1.1");
     }
 
